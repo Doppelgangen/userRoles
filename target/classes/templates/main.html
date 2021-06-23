@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<a href="/new">Create new user</a>
+<h2>
+    <a th:each="user: ${users}">
+        <a th:href="${user.id}" th:text="${user.id}"> Id </a>
+        <p th:text="${user.name}"> Name </p>
+        <p th:text="${user.roles}"> Roles </p>
+        <p th:text="${user.active}"> Is active</p>
+    </a>
+</h2>
+</body>
+</html>

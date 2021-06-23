@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h3>
+    <form th:method="post" th:action="@{/{id}(id=${id})}" th:object="${user}">
+        <p th:text="${user.id}">User ID</p>
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name">
+        <a style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</a>
+        <br/>
+        <label for="password">Password</label>
+        <input type="password" th:field="*{password}" id="password">
+        <a style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</a>
+        <br/>
+        <p>Roles: </p>
+        <input th:field="*{roles}"/>
+        <br/>
+
+        <br/>
+        <br/>
+        <label for="active">Active</label>
+        <input type="checkbox" th:field="*{active}" id="active"/>
+        <br/>
+        <input type="submit" value="Update"/>
+    </form>
+    <a th:each="role : ${user.roles}">
+        <a th:if="${#sets.contains(userRoles, role)}">
+            <form method="post" th:action="@{/{id}/removeRole(id=${id},role=${role})}">
+                <span>Remove </span>
+                <input type="submit" th:value="${role}"/>
+                <span> role</span>
+            </form>
+        </a>
+        <br/>
+    </a>
+    <a th:unless="${#sets.contains(user.roles, roleAdmin)}">
+        <form method="post" th:action="@{/{id}/addRole(id=${id},role=ADMIN)}">
+            <input type="submit" value="Add ADMIN role"/>
+        </form>
+    </a>
+    <a th:unless="${#sets.contains(user.roles, roleUser)}">
+        <form method="post" th:action="@{/{id}/addRole(id=${id},role=USER)}">
+            <input type="submit" value="Add USER role"/>
+        </form>
+    </a>
+</h3>
+<a href="/">Return to main page</a>
+</body>
+</html>

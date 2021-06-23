@@ -1,0 +1,5 @@
+com/task/model/Role.class
+com/task/Application.class
+com/task/repository/UserRepository.class
+com/task/model/User.class
+com/task/controller/MainController.class
